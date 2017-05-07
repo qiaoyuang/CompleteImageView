@@ -36,11 +36,16 @@ urls的类型是一个持有String类型的List，也就是说，如果你想查
 如果你想查看的是本地图片，你应该这样写：
 
     completeImageView.setFiles(files, 0);
-    completeImageView.setOnDeleteItemListener(position -> {
-                
-                });
-files的类型是持有File类型的List,0的意思同上。如果你想查看本地图片，请获取到它的File对象。
-由于查看本地图片的时候，提供了一个移除图片的功能，因此，您可以通过添加删除监听，用来在用户移除图片的时候做一些别的事情。
+    scaleImageView.setOnDeleteItemListener(
+            new ScaleImageView.OnDeleteItemListener() {
+        @Override
+        public void onDelete(int position) {
+                                                
+        }
+    });
+files的类型是持有File类型的List,如果你想查看本地图片，请获取到它的File对象。0的意思同上。
+
+由于查看本地图片的时候，提供了一个移除图片的功能，因此，您可以通过添加删除监听，用来在用户移除图片的时候做一些别的事情。还是举个例子：假如你用一个RecyclerView展示了一组图片，用户点击其中任意一张图片查看大图，这时候假如说用户将第一张图片在CompleteImageView中移除了，那你的RecyclerView也应该保持同步，将第一张图片移除，而移除的逻辑就应该写在onDelete方法中，其中的参数position代表的是被移除的图片在List中的位置，例如移除的是第二张图片，则position的值是1.
 
 ### 第四步，创建
 
