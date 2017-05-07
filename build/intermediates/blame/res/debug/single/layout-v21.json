@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/qiaoyuang/Downloads/project/Icon/completeimageview/build/intermediates/res/merged/debug/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/qiaoyuang/.android/build-cache/7f93b4e6d644cce1f8c974c42eaaa9ca4ae4f7ca/output/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/Users/qiaoyuang/Downloads/project/Icon/completeimageview/build/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/qiaoyuang/.android/build-cache/7f93b4e6d644cce1f8c974c42eaaa9ca4ae4f7ca/output/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/qiaoyuang/Downloads/project/Icon/completeimageview/build/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/qiaoyuang/.android/build-cache/7f93b4e6d644cce1f8c974c42eaaa9ca4ae4f7ca/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/qiaoyuang/Downloads/project/Icon/completeimageview/build/intermediates/res/merged/debug/layout-v21/notification_action.xml",
+        "source": "/Users/qiaoyuang/.android/build-cache/7f93b4e6d644cce1f8c974c42eaaa9ca4ae4f7ca/output/res/layout-v21/notification_action.xml"
+    }
+]
