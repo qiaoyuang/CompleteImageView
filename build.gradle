@@ -1,5 +1,11 @@
 apply plugin: 'com.android.library'
 
+ext {
+    PUBLISH_GROUP_ID = 'com.w10group'
+    PUBLISH_ARTIFACT_ID = 'complete-image-view'
+    PUBLISH_VERSION = '0.1'
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -41,3 +47,5 @@ dependencies {
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.6.0'
     testCompile 'junit:junit:4.12'
 }
+
+apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
