@@ -1,0 +1,9 @@
+-classpath '/Users/qiaoyuang/Library/Android/sdk/platforms/android-25/android.jar'
+-d '/Users/qiaoyuang/Downloads/project/Icon/completeimageview/build/docs/javadoc'
+-doctitle 'completeimageview API'
+-quiet 
+-windowtitle 'completeimageview API'
+'/Users/qiaoyuang/Downloads/project/Icon/completeimageview/src/main/java/com/w10group/completeimageview/CompleteImageView.java'
+'/Users/qiaoyuang/Downloads/project/Icon/completeimageview/src/main/java/com/w10group/completeimageview/ImageDownloader.java'
+'/Users/qiaoyuang/Downloads/project/Icon/completeimageview/src/main/java/com/w10group/completeimageview/IOThread.java'
+'/Users/qiaoyuang/Downloads/project/Icon/completeimageview/src/main/java/com/w10group/completeimageview/MyPagerAdapter.java'
