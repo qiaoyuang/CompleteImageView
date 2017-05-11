@@ -7,7 +7,6 @@ import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
-import java.lang.Runnable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -108,41 +106,30 @@ public class CompleteImageView {
         mViewPager = (ViewPager) relativeLayout.findViewById(R.id.scale_image_view_pager);
         mDialog = new Dialog(mActivity, R.style.Dialog_Fullscreen);
         mDialog.setContentView(relativeLayout);
-        close.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDialog.dismiss();
+        close.setOnClickListener(v -> mDialog.dismiss());
+        imDelete.setOnClickListener(v -> {
+            int size = mViews.size();
+            mFiles.remove(mSelectedPosition);
+            if (mListener != null) {
+                mListener.onDelete(mSelectedPosition);
             }
+            mViewPager.removeView(mViews.remove(mSelectedPosition));
+            if (mSelectedPosition != size) {
+                int position = mSelectedPosition + 1;
+                String text = position + "/" + mViews.size();
+                tvImageCount.setText(text);
+            }
+            mAdapter.notifyDataSetChanged();
         });
-        imDelete.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int size = mViews.size();
-                mFiles.remove(mSelectedPosition);
-                if (mListener != null) {
-                    mListener.onDelete(mSelectedPosition);
-                }
-                mViewPager.removeView(mViews.remove(mSelectedPosition));
-                if (mSelectedPosition != size) {
-                    int position = mSelectedPosition + 1;
-                    String text = position + "/" + mViews.size();
-                    tvImageCount.setText(text);
-                }
-                mAdapter.notifyDataSetChanged();
+        imDelete.setOnClickListener(v -> {
+            try {
+                MediaStore.Images.Media.insertImage(mActivity.getContentResolver(),
+                        mDownloadFiles.get(mSelectedPosition).getAbsolutePath(),
+                        mDownloadFiles.get(mSelectedPosition).getName(), null);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
-        });
-        imDelete.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    MediaStore.Images.Media.insertImage(mActivity.getContentResolver(),
-                            mDownloadFiles.get(mSelectedPosition).getAbsolutePath(),
-                            mDownloadFiles.get(mSelectedPosition).getName(), null);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                Snackbar.make(mViewPager, "图片保存成功", Snackbar.LENGTH_SHORT).show();
-            }
+            Snackbar.make(mViewPager, "图片保存成功", Snackbar.LENGTH_SHORT).show();
         });
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -173,22 +160,14 @@ public class CompleteImageView {
                 FrameLayout frameLayout = (FrameLayout) mActivity.getLayoutInflater().inflate(R.layout.view_scale_image, null);
                 SubsamplingScaleImageView imageView = (SubsamplingScaleImageView) frameLayout.findViewById(R.id.scale_image_view);
                 mViews.add(frameLayout);
-                IOThread.getSingleThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        File downLoadFile;
-                        try {
-                            downLoadFile = mImageDownloader.downLoad(url, mActivity);
-                            mDownloadFiles.add(downLoadFile);
-                            mActivity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    imageView.setImage(ImageSource.uri(Uri.fromFile(downLoadFile)));
-                                }
-                            });
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                IOThread.getSingleThread().execute(() -> {
+                    File downLoadFile;
+                    try {
+                        downLoadFile = mImageDownloader.downLoad(url, mActivity);
+                        mDownloadFiles.add(downLoadFile);
+                        mActivity.runOnUiThread(() -> imageView.setImage(ImageSource.uri(Uri.fromFile(downLoadFile))));
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
             }
