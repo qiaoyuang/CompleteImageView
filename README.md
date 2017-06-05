@@ -36,8 +36,8 @@ urls的类型是一个持有String类型的List，也就是说，如果你想查
 如果你想查看的是本地图片，你应该这样写：
 
     completeImageView.setFiles(files, 0);
-    scaleImageView.setOnDeleteItemListener(
-            new ScaleImageView.OnDeleteItemListener() {
+    completeImageView.setOnDeleteItemListener(
+            new CompleteImageView.OnDeleteItemListener() {
         @Override
         public void onDelete(int position) {
                                                 
