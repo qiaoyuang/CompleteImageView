@@ -1,4 +1,4 @@
-# CompleteImageView
+# CompleteImageView(已停止维护，过段时间用Kotlin重写)
 一个用于Android的大图查看器
 
 ## 如何快速开始使用
